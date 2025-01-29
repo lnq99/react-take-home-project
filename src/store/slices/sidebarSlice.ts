@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 // interface ComponentState {
 //     version: 'default' | 'alternative';
@@ -23,23 +23,23 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 
 interface SidebarState {
-    data: Record<string, any> | null;
+    data: Record<string, any> | null
 }
 
 const initialSidebarState: SidebarState = {
     data: null,
-};
+}
 
 const sidebarSlice = createSlice({
     name: 'sidebar',
     initialState: initialSidebarState,
     reducers: {
         setSidebarData(state, action: PayloadAction<Record<string, any>>) {
-            state.data = action.payload;
+            state.data = action.payload
             console.log('sidebar data:', state.data)
         },
     },
-});
+})
 
-export const { setSidebarData } = sidebarSlice.actions;
-export const sidebarReducer = sidebarSlice.reducer;
+export const { setSidebarData } = sidebarSlice.actions
+export const sidebarReducer = sidebarSlice.reducer

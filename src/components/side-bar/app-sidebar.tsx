@@ -1,10 +1,3 @@
-import { ComponentProps } from "react"
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/store';
-
-import { NavMain } from "@/components/side-bar/nav-main"
-import { NavUser } from "@/components/side-bar/nav-user"
-import { TeamSwitcher } from "@/components/side-bar/team-switcher"
 import {
   Sidebar,
   SidebarContent,
@@ -13,14 +6,21 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar"
 
+import { ComponentProps } from "react"
+import { NavMain } from "@/components/side-bar/nav-main"
+import { NavUser } from "@/components/side-bar/nav-user"
+import { RootState } from '@/store/store'
+import { TeamSwitcher } from "@/components/side-bar/team-switcher"
+import { useSelector } from 'react-redux'
+
 // import data from '@/config/sidebar.conf.json';
 
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
-  const data = useSelector((state: RootState) => state.sidebar.data);
+  const data = useSelector((state: RootState) => state.sidebar.data)
 
   if (!data) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   return (

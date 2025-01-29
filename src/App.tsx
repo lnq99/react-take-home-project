@@ -1,10 +1,3 @@
-import { ThemeProvider } from './components/theme/theme-provider'
-import { ModeToggle } from './components/theme/mode-toggle'
-
-import { lazy, Suspense } from 'react';
-import { Routes, Route } from 'react-router';
-
-import { AppSidebar } from "@/components/side-bar/app-sidebar.tsx"
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,51 +6,61 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
+import { Route, Routes, useLocation } from 'react-router'
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import MenuBar from './components/menu-bar/menu-bar.tsx';
+import { Suspense, lazy } from 'react'
+import { setConfig, setCurrentApp } from './store/slices/configSlice.ts'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setSidebarData } from './store/slices/sidebarSlice.ts';
-import { RootState } from './store/store.ts';
-import { setConfig, setCurrentApp } from './store/slices/configSlice.ts';
+import { AppSidebar } from "@/components/side-bar/app-sidebar.tsx"
+import MenuBar from './components/menu-bar/menu-bar.tsx'
+import { ModeToggle } from './components/theme/mode-toggle'
+import { RootState } from './store/store.ts'
+import { Separator } from "@/components/ui/separator"
+import { ThemeProvider } from './components/theme/theme-provider'
+import { setSidebarData } from './store/slices/sidebarSlice.ts'
+import { useEffect } from 'react'
 
-
-const NotFound = lazy(() => import('./components/not-found.tsx'));
-const LoginV1 = lazy(() => import('./apps/login/v1/Login.tsx'));
-const LoginV2 = lazy(() => import('./apps/login/v2/Login.tsx'));
+const NotFound = lazy(() => import('./components/not-found.tsx'))
+const LoginApp = lazy(() => import('./apps/login/Login.tsx'))
+const WorkflowApp = lazy(() => import('./apps/workflow/Workflow.tsx'))
 
 
 async function loadConfig(configPath: string): Promise<Record<string, any>> {
-  const response = await fetch(configPath);
+  const response = await fetch(configPath)
   if (!response.ok) {
-    throw new Error(`Failed to fetch config: ${response.statusText}`);
+    throw new Error(`Failed to fetch config: ${response.statusText}`)
   }
-  return response.json();
+  return response.json()
 }
 
 function App() {
-  const dispatch = useDispatch();
-  const currentApp = useSelector((state: RootState) => state.config.currentApp);
+  const location = useLocation()
+  const dispatch = useDispatch()
+  const currentApp = useSelector((state: RootState) => state.config.currentApp)
 
   useEffect(() => {
     (async () => {
-      const sidebarConfig = await loadConfig('/sidebar.conf.json');
-      dispatch(setSidebarData(sidebarConfig));
+      const sidebarConfig = await loadConfig('/sidebar.conf.json')
+      dispatch(setSidebarData(sidebarConfig))
 
-      const appConfig = await loadConfig('/app.conf.json');
-      dispatch(setConfig(appConfig));
+      const appConfig = await loadConfig('/app.conf.json')
+      dispatch(setConfig(appConfig))
 
-      dispatch(setCurrentApp({ name: 'login', version: 'v1' }));
-    })();
-  }, [dispatch]);
+      const name = location.pathname.substring(1)
 
-  if (!currentApp) return <div>Loading...</div>;
+      const currentApp = appConfig[name]
+      console.log(currentApp)
+
+      dispatch(setCurrentApp({ name, version: currentApp.defaultVersion }))
+    })()
+  }, [dispatch])
+
+  if (!currentApp) return <div>Loading...</div>
 
 
   return (
@@ -88,18 +91,13 @@ function App() {
           </header>
           <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
             <MenuBar />
-            {/* <div className="grid auto-rows-min gap-4 md:grid-cols-2"> */}
-            {/* <div className="aspect-video rounded-xl bg-muted/50" /> */}
-            {/* <div className="aspect-video rounded-xl bg-muted/50" /> */}
-            {/* </div> */}
             <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min">
               <Suspense fallback={<div className="container">Loading...</div>}>
                 <Routes>
                   {/* <Route path="/" element={<Home />} /> */}
                   {/* <Route path="/about" element={<About />} /> */}
-                  {/* <Route path="/products" element={<Products />} /> */}
-                  {/* <Route path="/products/:slug" element={<ProductDetails />} /> */}
-                  <Route path="/login" element={currentApp.version === 'v1' ? <LoginV1 /> : <LoginV2 />} />
+                  <Route path="/login" element={<LoginApp />} />
+                  <Route path="/workflow" element={<WorkflowApp />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>

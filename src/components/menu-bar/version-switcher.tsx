@@ -1,35 +1,34 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@/store/store';
-import { setCurrentApp } from '@/store/slices/configSlice';
-
 import { Check, ChevronsUpDown, GalleryVerticalEnd } from "lucide-react"
-
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useDispatch, useSelector } from 'react-redux'
+
+import { RootState } from '@/store/store'
 import {
   SidebarMenuButton,
 } from "@/components/ui/sidebar"
+import { setCurrentApp } from '@/store/slices/configSlice'
 
 export function VersionSwitcher() {
-  const dispatch = useDispatch();
-  const currentApp = useSelector((state: RootState) => state.config.currentApp);
-  const config = useSelector((state: RootState) => state.config.config);
+  const dispatch = useDispatch()
+  const currentApp = useSelector((state: RootState) => state.config.currentApp)
+  const config = useSelector((state: RootState) => state.config.config)
 
-  if (!config || !currentApp) return null;
+  if (!config || !currentApp) return null
 
-  const appConfig = config[currentApp.name];
-  if (!appConfig) return null;
+  const appConfig = config[currentApp.name]
+  if (!appConfig) return null
 
-  const versions = Object.keys(appConfig.versions);
+  const versions = Object.keys(appConfig.versions)
   // const defaultVersion = appConfig.defaultVersion;
 
   const handleVersionChange = (version: string) => {
-    dispatch(setCurrentApp({ name: currentApp.name, version }));
-  };
+    dispatch(setCurrentApp({ name: currentApp.name, version }))
+  }
 
   return (
     <DropdownMenu>
