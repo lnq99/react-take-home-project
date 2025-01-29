@@ -1,0 +1,18 @@
+{
+  "login": {
+    "title": "Login",
+    "versions": {
+      "v1": "login/v1",
+      "v2": "login/v2"
+    },
+    "defaultVersion": "v2",
+    "menuItems": ["version-switcher", "add-box", "search-form"]
+  },
+  "workflow": {
+    "title": "Workflow",
+    "versions": {
+      "v1": "workflow/v1"
+    },
+    "menuItems": ["version-switcher", "add-label"]
+  }
+}

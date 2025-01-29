@@ -1,0 +1,43 @@
+{
+  "user": {
+    "name": "User",
+    "email": "user@example.com",
+    "avatar": "react.svg"
+  },
+  "teams": [
+    { "name": "Example Inc", "plan": "Enterprise" },
+    { "name": "Example Corp.", "plan": "Startup" }
+  ],
+  "navMain": [
+    {
+      "title": "Applications",
+      "url": "#",
+      "isActive": true,
+      "items": [
+        { "title": "Login", "url": "login" },
+        { "title": "Chart (WIP)", "url": "chart" },
+        { "title": "Table (WIP)", "url": "table" }
+      ]
+    },
+    {
+      "title": "Models (placeholder)",
+      "url": "#",
+      "items": [
+        { "title": "Genesis", "url": "#" },
+        { "title": "Explorer", "url": "#" }
+      ]
+    },
+    {
+      "title": "Settings (placeholder)",
+      "url": "#",
+      "items": [
+        { "title": "General", "url": "#" },
+        { "title": "Limits", "url": "#" }
+      ]
+    }
+  ],
+  "projects": [
+    { "name": "Design Engineering", "url": "#", "icon": {} },
+    { "name": "Sales & Marketing", "url": "#", "icon": {} }
+  ]
+}
