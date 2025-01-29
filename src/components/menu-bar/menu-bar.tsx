@@ -1,6 +1,5 @@
 import { AddBox } from "./add-box"
 import { AddNode } from "./add-node"
-import { Button } from "../ui/button"
 import { RootState } from "@/store/store"
 import { SearchForm } from "./search-form"
 import { VersionSwitcher } from "@/components/menu-bar/version-switcher"

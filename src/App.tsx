@@ -52,15 +52,11 @@ function App() {
       dispatch(setConfig(appConfig))
 
       const name = location.pathname.substring(1)
-
-      const currentApp = appConfig[name]
-
-      dispatch(setCurrentApp({ name, version: currentApp.defaultVersion }))
+      if (Object.keys(appConfig).includes(name)) {
+        dispatch(setCurrentApp({ name, version: appConfig[name].defaultVersion }))
+      }
     })()
   }, [dispatch])
-
-  if (!currentApp) return <div>Loading...</div>
-
 
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
@@ -80,7 +76,7 @@ function App() {
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>{currentApp.name}</BreadcrumbPage>
+                  <BreadcrumbPage>{currentApp?.name}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

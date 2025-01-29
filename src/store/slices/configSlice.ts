@@ -1,7 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { AppDispatch } from '@/store/store'
-
 interface AppVersion {
   title: string
   url: string

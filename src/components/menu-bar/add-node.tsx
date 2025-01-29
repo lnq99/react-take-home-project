@@ -4,7 +4,7 @@ import { addNode } from '@/store/slices/workflowSlice'
 import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 
-export function AddNode({ ...props }: React.ComponentProps<'form'>) {
+export function AddNode() {
   const [component, setComponent] = useState('')
 
   const dispatch = useDispatch()
@@ -16,7 +16,6 @@ export function AddNode({ ...props }: React.ComponentProps<'form'>) {
       setComponent('')
     }
   }
-
 
   return (
     <div className="flex items-center gap-2">
