@@ -36,7 +36,6 @@ const sidebarSlice = createSlice({
     reducers: {
         setSidebarData(state, action: PayloadAction<Record<string, any>>) {
             state.data = action.payload
-            console.log('sidebar data:', state.data)
         },
     },
 })

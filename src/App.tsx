@@ -54,7 +54,6 @@ function App() {
       const name = location.pathname.substring(1)
 
       const currentApp = appConfig[name]
-      console.log(currentApp)
 
       dispatch(setCurrentApp({ name, version: currentApp.defaultVersion }))
     })()

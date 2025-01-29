@@ -1,5 +1,6 @@
 import { AddBox } from "./add-box"
-import { AddLabel } from "./add-label"
+import { AddNode } from "./add-node"
+import { Button } from "../ui/button"
 import { RootState } from "@/store/store"
 import { SearchForm } from "./search-form"
 import { VersionSwitcher } from "@/components/menu-bar/version-switcher"
@@ -15,12 +16,11 @@ export default function MenuBar() {
   if (!appConfig) return null
 
   const menuItems = appConfig.menuItems
-  console.log(menuItems)
 
   const componentsMap: Record<string, React.ElementType> = {
     "version-switcher": VersionSwitcher,
     "add-box": AddBox,
-    "add-label": AddLabel,
+    "add-node": AddNode,
     "search-form": SearchForm,
   }
 
